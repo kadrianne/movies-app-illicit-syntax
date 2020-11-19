@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_19_223049) do
+ActiveRecord::Schema.define(version: 2020_11_19_225927) do
+
+  create_table "directors", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "favorite_movies", force: :cascade do |t|
     t.integer "movie_id", null: false
@@ -26,6 +32,8 @@ ActiveRecord::Schema.define(version: 2020_11_19_223049) do
     t.string "genre"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "director_id"
+    t.index ["director_id"], name: "index_movies_on_director_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -38,4 +46,5 @@ ActiveRecord::Schema.define(version: 2020_11_19_223049) do
 
   add_foreign_key "favorite_movies", "movies"
   add_foreign_key "favorite_movies", "users"
+  add_foreign_key "movies", "directors"
 end
